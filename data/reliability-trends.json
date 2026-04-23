@@ -1,0 +1,29 @@
+{
+  "overallHealth": 0.65,
+  "healthGrade": "D",
+  "behavioralScore": 1.0,
+  "reliabilityStability": 1.0,
+  "promiseCompletion": 0.0,
+  "consistencyScore": 1.0,
+  "enforcementLevel": "normal",
+  "uptime": 99.9,
+  "responseTime": 1.2,
+  "errorRate": 0.1,
+  "localModelUsage": 75,
+  "trends": {
+    "behavioral": {
+      "trend": "stable",
+      "volatility": 0.0
+    },
+    "cost": {
+      "trend": "improving",
+      "target_progress": 12.0
+    },
+    "promises": {
+      "trend": "needs_attention",
+      "completion_rate": 0.0,
+      "aging_issues": 0
+    }
+  },
+  "lastAnalysis": "2026-04-23T16:12:15.524172"
+}

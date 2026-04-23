@@ -1,0 +1,27 @@
+{
+  "expectedSavings": 32.0,
+  "actualSavings": 12.0,
+  "heartbeatSavings": 0.0,
+  "cronSavings": 12.0,
+  "efficiency": 0.375,
+  "breakdown": {
+    "heartbeat": {
+      "savings": 0,
+      "status": "Fix Needed",
+      "using_local": false
+    },
+    "cron_jobs": {
+      "savings": 12,
+      "status": "Optimized",
+      "jobs_local": 3,
+      "jobs_total": 3
+    },
+    "fallbacks": {
+      "savings": 0,
+      "status": "Configured",
+      "local_available": true
+    }
+  },
+  "trend": "stable",
+  "lastValidation": "2026-04-23T17:37:45.018007"
+}

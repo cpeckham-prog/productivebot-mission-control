@@ -1,0 +1,35 @@
+{
+  "status": "online",
+  "version": "2026.4.22",
+  "model": {
+    "primary": "anthropic/claude-sonnet-4-20250514",
+    "fallbacks": [
+      "ollama/llama3.2:3b",
+      "openai/gpt-5.4"
+    ]
+  },
+  "services": {
+    "gateway": {
+      "status": "stopped",
+      "port": 18789
+    },
+    "ollama": {
+      "status": "running",
+      "port": 11434
+    },
+    "heartbeat": {
+      "status": "active",
+      "interval": "30m"
+    },
+    "cron": {
+      "status": "active",
+      "jobs": 3
+    }
+  },
+  "resources": {
+    "memory_usage": "normal",
+    "disk_space": "adequate",
+    "network": "connected"
+  },
+  "lastCheck": "2026-04-23T17:47:37.449003"
+}
