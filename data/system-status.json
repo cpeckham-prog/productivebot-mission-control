@@ -1,5 +1,5 @@
 {
-  "status": "online",
+  "status": "unknown",
   "version": "2026.4.22",
   "model": {
     "primary": "anthropic/claude-sonnet-4-20250514",
@@ -10,7 +10,7 @@
   },
   "services": {
     "gateway": {
-      "status": "stopped",
+      "status": "running",
       "port": 18789
     },
     "ollama": {
@@ -31,5 +31,5 @@
     "disk_space": "adequate",
     "network": "connected"
   },
-  "lastCheck": "2026-04-23T17:47:37.449003"
+  "lastCheck": "2026-04-23T17:52:21.552110"
 }
