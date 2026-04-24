@@ -97,8 +97,8 @@ class MissionControlDashboard {
     renderMeta() {
         const updated = document.getElementById('generated-at');
         const summary = document.getElementById('source-summary');
-        if (updated) updated.textContent = this.data.generatedAt;
-        if (summary) summary.textContent = this.data.sourceSummary;
+        if (updated && !updated.textContent.trim()) updated.textContent = this.data.generatedAt;
+        if (summary && !summary.textContent.trim()) summary.textContent = this.data.sourceSummary;
     }
 
     renderProofCards() {
