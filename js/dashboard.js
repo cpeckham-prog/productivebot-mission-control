@@ -22,15 +22,16 @@ class MissionControlDashboard {
         
         // Load initial data with timeout
         const loadTimeout = setTimeout(() => {
-            console.warn('⚠️ Data loading timeout, using defaults');
+            console.warn('⚠️ Data loading timeout');
             this.data = {
-                cost: this.getDefaultCostData(),
-                reliability: this.getDefaultReliabilityData(),
-                system: this.getDefaultSystemData(),
+                cost: { error: 'Data loading timeout', source: 'timeout' },
+                reliability: { error: 'Data loading timeout', source: 'timeout' },
+                system: { error: 'Data loading timeout', source: 'timeout' },
                 lastUpdated: new Date()
             };
             this.updateDashboard();
             this.hideLoading();
+            this.showError('Dashboard data loading timed out');
         }, 10000); // 10 second timeout
         
         await this.loadData();
@@ -104,18 +105,18 @@ class MissionControlDashboard {
             
             // Load monitoring data with individual error handling
             const costData = await this.loadCostData().catch(e => {
-                console.warn('Cost data failed, using defaults:', e.message);
-                return this.getDefaultCostData();
+                console.warn('Cost data failed:', e.message);
+                return { error: 'Cost data unavailable', source: 'loadCostData' };
             });
             
             const reliabilityData = await this.loadReliabilityData().catch(e => {
-                console.warn('Reliability data failed, using defaults:', e.message);
-                return this.getDefaultReliabilityData();
+                console.warn('Reliability data failed:', e.message);
+                return { error: 'Reliability data unavailable', source: 'loadReliabilityData' };
             });
             
             const systemData = await this.loadSystemData().catch(e => {
-                console.warn('System data failed, using defaults:', e.message);
-                return this.getDefaultSystemData();
+                console.warn('System data failed:', e.message);
+                return { error: 'System data unavailable', source: 'loadSystemData' };
             });
             
             this.data = {
@@ -129,57 +130,21 @@ class MissionControlDashboard {
             
         } catch (error) {
             console.error('❌ Error loading data:', error);
-            // Use all default data if everything fails
+            // Show error state, never fake data
             this.data = {
-                cost: this.getDefaultCostData(),
-                reliability: this.getDefaultReliabilityData(),
-                system: this.getDefaultSystemData(),
+                cost: { error: 'Data loading failed', source: 'loadData' },
+                reliability: { error: 'Data loading failed', source: 'loadData' },
+                system: { error: 'Data loading failed', source: 'loadData' },
                 lastUpdated: new Date()
             };
             this.updateDashboard();
+            this.showError('Unable to load dashboard data from server');
         } finally {
             this.isLoading = false;
         }
     }
     
-    getDefaultCostData() {
-        return {
-            expectedSavings: 32,
-            actualSavings: 12,
-            heartbeatSavings: 0,
-            cronSavings: 12,
-            efficiency: 0.375,
-            breakdown: {
-                heartbeat: { savings: 0, status: 'Fix Needed', using_local: false },
-                cron_jobs: { savings: 12, status: 'Optimized', jobs_local: 3 }
-            }
-        };
-    }
-    
-    getDefaultReliabilityData() {
-        return {
-            overallHealth: 0.850,
-            healthGrade: 'B+',
-            behavioralScore: 1.000,
-            costEfficiency: 0.375,
-            promiseTracking: 0.95,
-            uptime: 99.9,
-            responseTime: 1.2,
-            errorRate: 0.1,
-            localUsage: 75
-        };
-    }
-    
-    getDefaultSystemData() {
-        return {
-            status: 'online',
-            version: '2026.4.22',
-            model: {
-                primary: 'anthropic/claude-sonnet-4-20250514',
-                fallbacks: ['ollama/llama3.2:3b', 'openai/gpt-5.4']
-            }
-        };
-    }
+
 
     async loadCostData() {
         // Try to load from our cost validation results
