@@ -96,10 +96,143 @@
             </div>
         </div>
 
+        <!-- Active Sessions Card -->
+        <div class="card sessions-card">
+            <div class="card-header">
+                <h3>🔄 Active Sessions</h3>
+                <span id="session-count" class="count-badge">3</span>
+            </div>
+            <div id="sessions-list" class="sessions-list">
+                <div class="session-item">
+                    <div class="session-info">
+                        <span class="session-label">Main Session</span>
+                        <span class="session-model">claude-sonnet-4</span>
+                    </div>
+                    <span class="session-duration">2h 15m</span>
+                </div>
+                <div class="session-item">
+                    <div class="session-info">
+                        <span class="session-label">Background Task</span>
+                        <span class="session-model">ollama/llama3.2</span>
+                    </div>
+                    <span class="session-duration">45m</span>
+                </div>
+                <div class="session-item">
+                    <div class="session-info">
+                        <span class="session-label">Cron Monitor</span>
+                        <span class="session-model">local</span>
+                    </div>
+                    <span class="session-duration">24h</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Model Usage Card -->
+        <div class="card model-usage-card">
+            <div class="card-header">
+                <h3>🧠 Model Usage</h3>
+                <span class="usage-period">Last 24h</span>
+            </div>
+            <div class="model-chart-container">
+                <canvas id="modelUsageChart" width="300" height="200"></canvas>
+            </div>
+            <div class="model-stats">
+                <div class="model-stat">
+                    <span class="model-name">Local (75%)</span>
+                    <div class="model-bar">
+                        <div class="model-fill local" style="width: 75%"></div>
+                    </div>
+                </div>
+                <div class="model-stat">
+                    <span class="model-name">Claude (20%)</span>
+                    <div class="model-bar">
+                        <div class="model-fill claude" style="width: 20%"></div>
+                    </div>
+                </div>
+                <div class="model-stat">
+                    <span class="model-name">GPT (5%)</span>
+                    <div class="model-bar">
+                        <div class="model-fill gpt" style="width: 5%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tool Usage Card -->
+        <div class="card tools-card">
+            <div class="card-header">
+                <h3>🛠️ Tool Usage</h3>
+                <span class="tools-period">Recent</span>
+            </div>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <span class="tool-name">📁 exec</span>
+                    <span class="tool-count">147</span>
+                </div>
+                <div class="tool-item">
+                    <span class="tool-name">📖 read</span>
+                    <span class="tool-count">89</span>
+                </div>
+                <div class="tool-item">
+                    <span class="tool-name">✏️ edit</span>
+                    <span class="tool-count">34</span>
+                </div>
+                <div class="tool-item">
+                    <span class="tool-name">🌐 browser</span>
+                    <span class="tool-count">21</span>
+                </div>
+                <div class="tool-item">
+                    <span class="tool-name">💬 message</span>
+                    <span class="tool-count">12</span>
+                </div>
+                <div class="tool-item">
+                    <span class="tool-name">🧠 memory</span>
+                    <span class="tool-count">8</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Resources Card -->
+        <div class="card resources-card">
+            <div class="card-header">
+                <h3>📊 System Resources</h3>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-item">
+                    <span class="resource-label">Memory</span>
+                    <div class="resource-bar">
+                        <div class="resource-fill" style="width: 68%"></div>
+                    </div>
+                    <span class="resource-value">68%</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-label">CPU</span>
+                    <div class="resource-bar">
+                        <div class="resource-fill" style="width: 23%"></div>
+                    </div>
+                    <span class="resource-value">23%</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-label">Storage</span>
+                    <div class="resource-bar">
+                        <div class="resource-fill" style="width: 45%"></div>
+                    </div>
+                    <span class="resource-value">45%</span>
+                </div>
+                <div class="resource-item">
+                    <span class="resource-label">Network</span>
+                    <div class="resource-bar">
+                        <div class="resource-fill good" style="width: 12%"></div>
+                    </div>
+                    <span class="resource-value">12%</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Reliability Metrics Card -->
         <div class="card reliability-card">
             <div class="card-header">
-                <h3>📊 Reliability Metrics</h3>
+                <h3>📈 Reliability Metrics</h3>
             </div>
             <div class="metrics-grid">
                 <div class="metric">
@@ -115,29 +248,46 @@
                     <span id="error-rate" class="metric-value">0.1%</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Local Usage</span>
-                    <span id="local-usage" class="metric-value">75%</span>
+                    <span class="metric-label">Success Rate</span>
+                    <span id="success-rate" class="metric-value">99.8%</span>
                 </div>
             </div>
         </div>
 
-        <!-- Recent Activity Card -->
+        <!-- Recent Activity Card (No Scroll!) -->
         <div class="card activity-card">
             <div class="card-header">
                 <h3>📋 Recent Activity</h3>
+                <button class="activity-expand">View All</button>
             </div>
-            <div id="activity-list" class="activity-list">
+            <div id="activity-list" class="activity-grid">
                 <div class="activity-item">
-                    <span class="time">13:25</span>
-                    <span class="event">📊 Dashboard data refreshed</span>
+                    <span class="activity-icon">📊</span>
+                    <div class="activity-content">
+                        <span class="activity-text">Dashboard data refreshed</span>
+                        <span class="activity-time">2 min ago</span>
+                    </div>
                 </div>
                 <div class="activity-item">
-                    <span class="time">12:47</span>
-                    <span class="event">🚀 Mission Control build started</span>
+                    <span class="activity-icon">🚀</span>
+                    <div class="activity-content">
+                        <span class="activity-text">Mission Control deployed</span>
+                        <span class="activity-time">1 hr ago</span>
+                    </div>
                 </div>
                 <div class="activity-item">
-                    <span class="time">12:31</span>
-                    <span class="event">🔒 Behavioral assessment: Normal (1.000)</span>
+                    <span class="activity-icon">🔒</span>
+                    <div class="activity-content">
+                        <span class="activity-text">Behavioral assessment: Normal</span>
+                        <span class="activity-time">1 hr ago</span>
+                    </div>
+                </div>
+                <div class="activity-item">
+                    <span class="activity-icon">⚡</span>
+                    <div class="activity-content">
+                        <span class="activity-text">Cron optimization enabled</span>
+                        <span class="activity-time">2 hr ago</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -153,16 +303,20 @@
                     <span class="value">2026.4.22</span>
                 </div>
                 <div class="info-row">
-                    <span class="label">Model</span>
+                    <span class="label">Primary Model</span>
                     <span class="value">claude-sonnet-4</span>
                 </div>
                 <div class="info-row">
-                    <span class="label">Last Updated</span>
-                    <span id="last-updated" class="value">13:25</span>
+                    <span class="label">Node</span>
+                    <span class="value">ProductiveBot-0MVY</span>
                 </div>
                 <div class="info-row">
-                    <span class="label">System Time</span>
-                    <span id="system-time" class="value">13:25</span>
+                    <span class="label">Uptime</span>
+                    <span class="value">2d 14h 32m</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Last Updated</span>
+                    <span id="last-updated" class="value">13:46</span>
                 </div>
             </div>
         </div>
