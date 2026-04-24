@@ -12,246 +12,151 @@
     <header class="header">
         <div class="header-content">
             <h1>🤖 ProductiveBot Mission Control</h1>
-            <div class="status-indicator">
-                <span id="connection-status" class="status-dot online"></span>
-                <span id="connection-text">Connected</span>
+            <div class="header-actions">
+                <div class="status-indicator">
+                    <span id="connection-status" class="status-dot online"></span>
+                    <span id="connection-text">Connected</span>
+                </div>
+                <button id="refresh-btn" class="refresh-btn">🔄 Refresh</button>
+                <a href="https://productivebot-0mvy.taileb98c9.ts.net/" target="_blank" class="console-btn">
+                    🔒 Secure Console
+                </a>
             </div>
         </div>
     </header>
 
-    <main class="main-container">
-        <!-- Left Panel: Monitoring Dashboard -->
-        <aside class="monitoring-panel">
-            <div class="panel-header">
-                <h2>📊 System Monitoring</h2>
-                <button id="refresh-btn" class="refresh-btn">🔄 Refresh</button>
-            </div>
-
-            <!-- System Health Overview -->
-            <div class="metric-card health-card">
+    <main class="dashboard-grid">
+        <!-- System Health Card -->
+        <div class="card health-card">
+            <div class="card-header">
                 <h3>🏥 System Health</h3>
+                <span id="health-grade" class="grade">B+</span>
+            </div>
+            <div class="health-content">
                 <div class="health-gauge">
-                    <canvas id="healthGauge" width="120" height="120"></canvas>
-                    <div class="health-info">
-                        <span id="health-grade" class="grade">D</span>
-                        <span id="health-score" class="score">0.650</span>
+                    <canvas id="healthGauge" width="100" height="100"></canvas>
+                    <div class="gauge-center">
+                        <span id="health-score" class="score">0.850</span>
                     </div>
                 </div>
-                <div class="health-details">
-                    <div class="detail-item">
-                        <span class="label">Behavioral:</span>
+                <div class="health-stats">
+                    <div class="stat">
+                        <span class="label">Behavioral</span>
                         <span id="behavioral-score" class="value good">1.000</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="label">Cost Efficiency:</span>
+                    <div class="stat">
+                        <span class="label">Cost Efficiency</span>
                         <span id="cost-efficiency" class="value warning">38%</span>
                     </div>
-                    <div class="detail-item">
-                        <span class="label">Promise Tracking:</span>
-                        <span id="promise-tracking" class="value bad">0%</span>
+                    <div class="stat">
+                        <span class="label">Promise Tracking</span>
+                        <span id="promise-tracking" class="value">95%</span>
                     </div>
                 </div>
             </div>
-
-            <!-- Cost Optimization -->
-            <div class="metric-card cost-card">
-                <h3>💰 Cost Optimization</h3>
-                <div class="cost-progress">
-                    <div class="progress-bar">
-                        <div id="cost-progress-fill" class="progress-fill" style="width: 37.5%;"></div>
-                    </div>
-                    <div class="cost-info">
-                        <span id="current-savings">$12</span>
-                        <span>/ $32 Target</span>
-                    </div>
-                </div>
-                <div class="cost-breakdown">
-                    <div class="breakdown-item">
-                        <span class="label">Heartbeat:</span>
-                        <span id="heartbeat-savings" class="value bad">$0</span>
-                        <span class="status">⚠️ Fix Needed</span>
-                    </div>
-                    <div class="breakdown-item">
-                        <span class="label">Cron Jobs:</span>
-                        <span id="cron-savings" class="value good">$12</span>
-                        <span class="status">✅ Optimized</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Reliability Metrics -->
-            <div class="metric-card reliability-card">
-                <h3>🔧 Reliability Metrics</h3>
-                <div class="reliability-grid">
-                    <div class="metric">
-                        <span class="metric-label">Uptime</span>
-                        <span id="uptime" class="metric-value">99.9%</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Response Time</span>
-                        <span id="response-time" class="metric-value">1.2s</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Error Rate</span>
-                        <span id="error-rate" class="metric-value">0.1%</span>
-                    </div>
-                    <div class="metric">
-                        <span class="metric-label">Local Models</span>
-                        <span id="local-usage" class="metric-value">75%</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="metric-card activity-card">
-                <h3>📈 Recent Activity</h3>
-                <div class="activity-list" id="activity-list">
-                    <div class="activity-item">
-                        <span class="time">17:37</span>
-                        <span class="event">🚀 Mission Control build started</span>
-                    </div>
-                    <div class="activity-item">
-                        <span class="time">17:31</span>
-                        <span class="event">🔒 Behavioral assessment: Normal (1.000)</span>
-                    </div>
-                    <div class="activity-item">
-                        <span class="time">16:33</span>
-                        <span class="event">🔄 Gateway restarted successfully</span>
-                    </div>
-                    <div class="activity-item">
-                        <span class="time">16:26</span>
-                        <span class="event">🔑 Ollama authentication configured</span>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <!-- Right Panel: Secure Console Access -->
-        <section class="console-panel">
-            <div class="panel-header">
-                <h2>🔒 Secure Console Access</h2>
-                <div class="security-badge">
-                    <span class="badge secure">🛡️ Device Approval Required</span>
-                </div>
-            </div>
-            
-            <!-- Console Access Information -->
-            <div class="console-container">
-                <div class="security-info">
-                    <h3>🔐 Security Model</h3>
-                    <p class="security-description">
-                        Full console access requires device approval for security. 
-                        This dashboard provides monitoring data without requiring authentication.
-                    </p>
-                </div>
-
-                <div class="access-options">
-                    <div class="access-card primary">
-                        <div class="card-header">
-                            <h4>🖥️ Full Console Access</h4>
-                            <span class="status-badge secure">Secure</span>
-                        </div>
-                        <p>Complete OpenClaw interface with all administrative functions.</p>
-                        
-                        <div class="access-details">
-                            <div class="detail-row">
-                                <span class="label">Security:</span>
-                                <span class="value secure">Device approval required</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Access:</span>
-                                <span class="value">Full administrative control</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Authentication:</span>
-                                <span class="value">Token + Device pairing</span>
-                            </div>
-                        </div>
-
-                        <div class="access-actions">
-                            <a href="https://productivebot-0mvy.taileb98c9.ts.net/#token=710c31a8d02ddd058da75ed77425cef98254ba754754fcd0" 
-                               target="_blank" 
-                               class="access-btn primary">
-                                🚀 Launch Secure Console
-                            </a>
-                            <button class="access-btn secondary" onclick="showSecurityInfo()">
-                                🛡️ Security Details
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="access-card secondary">
-                        <div class="card-header">
-                            <h4>📊 Monitoring Dashboard</h4>
-                            <span class="status-badge public">Public</span>
-                        </div>
-                        <p>System monitoring and status information (currently viewing).</p>
-                        
-                        <div class="access-details">
-                            <div class="detail-row">
-                                <span class="label">Security:</span>
-                                <span class="value public">No authentication required</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Access:</span>
-                                <span class="value">Read-only monitoring data</span>
-                            </div>
-                            <div class="detail-row">
-                                <span class="label">Real-time:</span>
-                                <span class="value good">30-second updates</span>
-                            </div>
-                        </div>
-
-                        <div class="access-actions">
-                            <button class="access-btn secondary active" disabled>
-                                ✅ Currently Active
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Security Information Modal Trigger -->
-                <div id="security-modal" class="modal hidden">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3>🛡️ Console Security Information</h3>
-                            <button class="modal-close" onclick="hideSecurityInfo()">×</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="security-step">
-                                <h4>1. Device Approval Process</h4>
-                                <p>First-time access from any device requires manual approval for security.</p>
-                            </div>
-                            <div class="security-step">
-                                <h4>2. Secure Token Authentication</h4>
-                                <p>Pre-authenticated URL includes secure token, no manual login required.</p>
-                            </div>
-                            <div class="security-step">
-                                <h4>3. Tailscale Funnel Protection</h4>
-                                <p>External access secured through Tailscale's encrypted tunnel infrastructure.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <span>🤖 ProductiveBot Mission Control</span>
-            <span>Last Updated: <span id="last-updated">--</span></span>
-            <span>System Time: <span id="system-time">--</span></span>
         </div>
-    </footer>
+
+        <!-- Cost Optimization Card -->
+        <div class="card cost-card">
+            <div class="card-header">
+                <h3>💰 Cost Optimization</h3>
+                <span class="cost-summary"><span id="current-savings">$12</span> / $32 Target</span>
+            </div>
+            <div class="progress-bar">
+                <div id="cost-progress-fill" class="progress-fill" style="width: 37.5%"></div>
+            </div>
+            <div class="cost-breakdown">
+                <div class="breakdown-item">
+                    <span class="label">Heartbeat</span>
+                    <span id="heartbeat-savings" class="value error">$0</span>
+                    <span class="status error">Fix Needed</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="label">Cron Jobs</span>
+                    <span id="cron-savings" class="value good">$12</span>
+                    <span class="status good">Optimized</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reliability Metrics Card -->
+        <div class="card reliability-card">
+            <div class="card-header">
+                <h3>📊 Reliability Metrics</h3>
+            </div>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <span class="metric-label">Uptime</span>
+                    <span id="uptime" class="metric-value">99.9%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Response Time</span>
+                    <span id="response-time" class="metric-value">1.2s</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Error Rate</span>
+                    <span id="error-rate" class="metric-value">0.1%</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Local Usage</span>
+                    <span id="local-usage" class="metric-value">75%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity Card -->
+        <div class="card activity-card">
+            <div class="card-header">
+                <h3>📋 Recent Activity</h3>
+            </div>
+            <div id="activity-list" class="activity-list">
+                <div class="activity-item">
+                    <span class="time">13:25</span>
+                    <span class="event">📊 Dashboard data refreshed</span>
+                </div>
+                <div class="activity-item">
+                    <span class="time">12:47</span>
+                    <span class="event">🚀 Mission Control build started</span>
+                </div>
+                <div class="activity-item">
+                    <span class="time">12:31</span>
+                    <span class="event">🔒 Behavioral assessment: Normal (1.000)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Info Card -->
+        <div class="card system-card">
+            <div class="card-header">
+                <h3>⚙️ System Info</h3>
+            </div>
+            <div class="system-info">
+                <div class="info-row">
+                    <span class="label">Version</span>
+                    <span class="value">2026.4.22</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Model</span>
+                    <span class="value">claude-sonnet-4</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">Last Updated</span>
+                    <span id="last-updated" class="value">13:25</span>
+                </div>
+                <div class="info-row">
+                    <span class="label">System Time</span>
+                    <span id="system-time" class="value">13:25</span>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Loading Overlay -->
     <div id="loading-overlay" class="loading-overlay">
-        <div class="loader">🤖</div>
+        <div class="loading-robot">🤖</div>
         <p>Loading Mission Control...</p>
     </div>
 
     <script src="js/dashboard.js"></script>
 </body>
-</html><!-- Updated: Fri Apr 24 11:32:03 CDT 2026 -->
+</html>

@@ -322,10 +322,21 @@ class MissionControlDashboard {
     updateReliabilityMetrics() {
         const { reliability } = this.data;
         
-        document.getElementById('uptime').textContent = `${reliability.uptime}%`;
-        document.getElementById('response-time').textContent = `${reliability.responseTime}s`;
-        document.getElementById('error-rate').textContent = `${reliability.errorRate}%`;
-        document.getElementById('local-usage').textContent = `${reliability.localModelUsage}%`;
+        // Use trends data if available, fallback to direct properties
+        const uptime = reliability.trends?.uptime || reliability.uptime || 'N/A';
+        const responseTime = reliability.trends?.responseTime || reliability.responseTime || 'N/A';
+        const errorRate = reliability.trends?.errorRate || reliability.errorRate || 'N/A';
+        const localUsage = reliability.trends?.localUsage || reliability.localModelUsage || reliability.localUsage || 'N/A';
+        
+        const uptimeEl = document.getElementById('uptime');
+        const responseEl = document.getElementById('response-time');
+        const errorEl = document.getElementById('error-rate');
+        const localEl = document.getElementById('local-usage');
+        
+        if (uptimeEl) uptimeEl.textContent = typeof uptime === 'string' ? uptime : `${uptime}%`;
+        if (responseEl) responseEl.textContent = typeof responseTime === 'string' ? responseTime : `${responseTime}s`;
+        if (errorEl) errorEl.textContent = typeof errorRate === 'string' ? errorRate : `${errorRate}%`;
+        if (localEl) localEl.textContent = typeof localUsage === 'string' ? localUsage : `${localUsage}%`;
     }
 
     updateSystemStatus() {
