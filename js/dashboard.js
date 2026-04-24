@@ -286,23 +286,48 @@ class MissionControlDashboard {
     updateHealthMetrics() {
         const { reliability } = this.data;
         
-        // Update health gauge
-        const healthScore = Math.round(reliability.overallHealth * 100);
-        this.charts.healthGauge.data.datasets[0].data = [healthScore, 100 - healthScore];
+        // Update health gauge with better error handling
+        if (this.charts.healthGauge && typeof reliability.overallHealth === 'number') {
+            const healthScore = Math.round(reliability.overallHealth * 100);
+            const remainingScore = 100 - healthScore;
+            
+            this.charts.healthGauge.data.datasets[0].data = [healthScore, remainingScore];
+            
+            // Update colors based on grade
+            const colors = {
+                'A+': '#10b981', 'A': '#10b981', 'A-': '#10b981',
+                'B+': '#3b82f6', 'B': '#3b82f6', 'B-': '#3b82f6', 
+                'C+': '#f59e0b', 'C': '#f59e0b', 'C-': '#f59e0b',
+                'D+': '#ef4444', 'D': '#ef4444', 'D-': '#ef4444',
+                'F': '#7f1d1d'
+            };
+            
+            const grade = reliability.healthGrade || 'C';
+            this.charts.healthGauge.data.datasets[0].backgroundColor[0] = colors[grade] || '#f59e0b';
+            this.charts.healthGauge.data.datasets[0].backgroundColor[1] = '#252d3d';
+            
+            try {
+                this.charts.healthGauge.update('none'); // No animation for smoother updates
+            } catch (error) {
+                console.warn('Chart update failed:', error.message);
+            }
+        }
         
-        // Update colors based on grade
-        const colors = {
-            'A': '#10b981', 'B': '#3b82f6', 'C': '#f59e0b', 'D': '#ef4444', 'F': '#7f1d1d'
-        };
-        this.charts.healthGauge.data.datasets[0].backgroundColor[0] = colors[reliability.healthGrade] || '#f59e0b';
-        this.charts.healthGauge.update();
+        // Update text elements with proper null checks
+        const gradeEl = document.getElementById('health-grade');
+        const scoreEl = document.getElementById('health-score');
+        const behavioralEl = document.getElementById('behavioral-score');
+        const efficiencyEl = document.getElementById('cost-efficiency');
+        const promiseEl = document.getElementById('promise-tracking');
         
-        // Update text elements
-        document.getElementById('health-grade').textContent = reliability.healthGrade;
-        document.getElementById('health-score').textContent = reliability.overallHealth.toFixed(3);
-        document.getElementById('behavioral-score').textContent = reliability.behavioralScore.toFixed(3);
-        document.getElementById('cost-efficiency').textContent = `${Math.round(this.data.cost.efficiency * 100)}%`;
-        document.getElementById('promise-tracking').textContent = `${Math.round(reliability.promiseCompletion * 100)}%`;
+        if (gradeEl) gradeEl.textContent = reliability.healthGrade || 'N/A';
+        if (scoreEl) scoreEl.textContent = typeof reliability.overallHealth === 'number' ? reliability.overallHealth.toFixed(3) : 'N/A';
+        if (behavioralEl) behavioralEl.textContent = typeof reliability.behavioralScore === 'number' ? reliability.behavioralScore.toFixed(3) : 'N/A';
+        if (efficiencyEl) efficiencyEl.textContent = typeof this.data.cost.efficiency === 'number' ? `${Math.round(this.data.cost.efficiency * 100)}%` : 'N/A';
+        
+        // Fix promise tracking - use promiseTracking instead of promiseCompletion
+        const promiseValue = reliability.promiseTracking || reliability.promiseCompletion || 0;
+        if (promiseEl) promiseEl.textContent = typeof promiseValue === 'number' ? `${Math.round(promiseValue * 100)}%` : 'N/A';
     }
 
     updateCostMetrics() {
