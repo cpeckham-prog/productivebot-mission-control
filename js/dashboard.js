@@ -33,6 +33,9 @@ class MissionControlDashboard {
         this.updateTimestamps();
         setInterval(() => this.updateTimestamps(), 1000);
         
+        // Check console availability after initialization
+        setTimeout(() => this.checkConsoleAvailability(), 2000);
+        
         console.log('✅ Mission Control Dashboard initialized');
     }
 
@@ -50,11 +53,8 @@ class MissionControlDashboard {
             });
         });
         
-        // Console iframe error handling
-        const consoleIframe = document.getElementById('openclaw-console');
-        consoleIframe.addEventListener('error', () => {
-            this.handleConsoleError();
-        });
+        // Security modal event listeners
+        this.setupSecurityModal();
     }
 
     setupHealthGauge() {
@@ -345,7 +345,7 @@ class MissionControlDashboard {
 
     detectConsoleAccess() {
         // Check if OpenClaw console is accessible
-        fetch('http://localhost:18789')
+        fetch('https://productivebot-0mvy.taileb98c9.ts.net/')
             .then(response => {
                 if (response.ok) {
                     console.log('✅ OpenClaw console accessible');
@@ -396,80 +396,50 @@ document.addEventListener('DOMContentLoaded', () => {
     window.dashboard = new MissionControlDashboard();
 });
 
-// Console Access Functions
-window.openConsoleOption = function(option) {
-    const optionCards = document.querySelectorAll('.option-card');
-    optionCards.forEach(card => card.classList.remove('active'));
-    
-    if (option === 'direct') {
-        // Open in new tab
-        window.open('http://localhost:18789', '_blank');
-        
-        // Update active state
-        optionCards[0].classList.add('active');
-        
-    } else if (option === 'embed') {
-        // Try embedding
-        const iframe = document.getElementById('openclaw-console');
-        const embedDiv = document.getElementById('console-embed');
-        const fallbackDiv = document.getElementById('console-fallback');
-        
-        iframe.src = 'http://localhost:18789';
-        embedDiv.classList.remove('hidden');
-        fallbackDiv.style.display = 'none';
-        
-        // Update active state
-        optionCards[1].classList.add('active');
-        
-        // Set timeout to show fallback if embed fails
-        setTimeout(() => {
-            // Check if iframe loaded
-            iframe.onerror = () => {
-                embedDiv.classList.add('hidden');
-                fallbackDiv.style.display = 'block';
-            };
-        }, 3000);
+// Security Modal Functions
+window.showSecurityInfo = function() {
+    const modal = document.getElementById('security-modal');
+    if (modal) {
+        modal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        console.log('🔒 Security information modal opened');
     }
 };
 
-window.showTunnelInstructions = function() {
-    const instructions = `
-    🌐 Setting up Remote Access to OpenClaw Console:
-    
-    🔧 Option 1: ngrok (Recommended for testing)
-    1. Install ngrok: https://ngrok.com/
-    2. Run: ngrok http 18789
-    3. Use the https URL provided
-    
-    🔒 Option 2: Tailscale (Recommended for production)
-    1. Install Tailscale on Mac mini
-    2. Enable MagicDNS
-    3. Access via machine name
-    
-    ⚙️ Option 3: SSH Tunnel
-    1. Set up SSH access to Mac mini
-    2. Create tunnel: ssh -L 18789:localhost:18789 user@macmini
-    3. Access via tunneled localhost
-    
-    🔐 Security Notes:
-    - Always use HTTPS for remote access
-    - Consider authentication requirements
-    - Restrict access to trusted networks
-    `;
-    
-    alert(instructions);
+window.hideSecurityInfo = function() {
+    const modal = document.getElementById('security-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
+        console.log('🔒 Security information modal closed');
+    }
 };
 
-// Auto-detect console access on page load
+// Security modal event handlers
 document.addEventListener('DOMContentLoaded', () => {
-    // Try to detect if console is directly accessible
-    fetch('http://localhost:18789', { mode: 'no-cors' })
-        .then(() => {
-            console.log('✅ OpenClaw console detected');
-        })
-        .catch(() => {
-            console.log('🔗 OpenClaw console requires direct link');
+    const modal = document.getElementById('security-modal');
+    if (modal) {
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideSecurityInfo();
+            }
         });
+    }
+    
+    // ESC key to close modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            hideSecurityInfo();
+        }
+    });
+    
+    // Check console availability for status indicators
+    setTimeout(() => {
+        if (window.dashboard) {
+            window.dashboard.checkConsoleAvailability();
+        }
+    }, 2000);
 });
 
 // Export for use in other scripts

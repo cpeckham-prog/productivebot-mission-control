@@ -126,64 +126,110 @@
             </div>
         </aside>
 
-        <!-- Right Panel: Full OpenClaw Console -->
+        <!-- Right Panel: Secure Console Access -->
         <section class="console-panel">
             <div class="panel-header">
-                <h2>🖥️ OpenClaw Console</h2>
-                <div class="console-tabs">
-                    <button class="tab-btn active" data-tab="chat">💬 Chat</button>
-                    <button class="tab-btn" data-tab="sessions">🧵 Sessions</button>
-                    <button class="tab-btn" data-tab="config">⚙️ Config</button>
-                    <button class="tab-btn" data-tab="logs">📜 Logs</button>
+                <h2>🔒 Secure Console Access</h2>
+                <div class="security-badge">
+                    <span class="badge secure">🛡️ Device Approval Required</span>
                 </div>
             </div>
             
-            <!-- OpenClaw Web Console Iframe -->
+            <!-- Console Access Information -->
             <div class="console-container">
-                <div class="console-options">
-                    <div class="option-card active" onclick="openConsoleOption('direct')">
-                        <h4>🔗 Direct Console</h4>
-                        <p>Open OpenClaw console in new tab</p>
-                        <button class="console-btn">Open Console</button>
-                    </div>
-                    <div class="option-card" onclick="openConsoleOption('embed')">
-                        <h4>📱 Embedded Console</h4>
-                        <p>Try embedding (may require tunnel)</p>
-                        <button class="console-btn">Try Embed</button>
-                    </div>
+                <div class="security-info">
+                    <h3>🔐 Security Model</h3>
+                    <p class="security-description">
+                        Full console access requires device approval for security. 
+                        This dashboard provides monitoring data without requiring authentication.
+                    </p>
                 </div>
-                
-                <div id="console-embed" class="console-embed hidden">
-                    <iframe 
-                        id="openclaw-console" 
-                        src=""
-                        frameborder="0"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                
-                <div id="console-fallback" class="console-fallback">
-                    <h3>🖥️ Console Access Options</h3>
-                    <div class="access-options">
-                        <div class="access-card">
-                            <h4>🔗 Direct Access (Recommended)</h4>
-                            <p>Open OpenClaw console in a new browser tab</p>
-                            <a href="http://localhost:18789" target="_blank" class="access-btn primary">
-                                🚀 Open Console
-                            </a>
+
+                <div class="access-options">
+                    <div class="access-card primary">
+                        <div class="card-header">
+                            <h4>🖥️ Full Console Access</h4>
+                            <span class="status-badge secure">Secure</span>
                         </div>
+                        <p>Complete OpenClaw interface with all administrative functions.</p>
                         
-                        <div class="access-card">
-                            <h4>🌐 Remote Access Setup</h4>
-                            <p>For external access, you'll need:</p>
-                            <ul class="setup-list">
-                                <li>✅ OpenClaw running (detected)</li>
-                                <li>⚠️ Secure tunnel (ngrok, Tailscale, etc.)</li>
-                                <li>🔒 Authentication configuration</li>
-                            </ul>
-                            <button class="access-btn secondary" onclick="showTunnelInstructions()">
-                                📖 Setup Instructions
+                        <div class="access-details">
+                            <div class="detail-row">
+                                <span class="label">Security:</span>
+                                <span class="value secure">Device approval required</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Access:</span>
+                                <span class="value">Full administrative control</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Authentication:</span>
+                                <span class="value">Token + Device pairing</span>
+                            </div>
+                        </div>
+
+                        <div class="access-actions">
+                            <a href="https://productivebot-0mvy.taileb98c9.ts.net/#token=710c31a8d02ddd058da75ed77425cef98254ba754754fcd0" 
+                               target="_blank" 
+                               class="access-btn primary">
+                                🚀 Launch Secure Console
+                            </a>
+                            <button class="access-btn secondary" onclick="showSecurityInfo()">
+                                🛡️ Security Details
                             </button>
+                        </div>
+                    </div>
+                    
+                    <div class="access-card secondary">
+                        <div class="card-header">
+                            <h4>📊 Monitoring Dashboard</h4>
+                            <span class="status-badge public">Public</span>
+                        </div>
+                        <p>System monitoring and status information (currently viewing).</p>
+                        
+                        <div class="access-details">
+                            <div class="detail-row">
+                                <span class="label">Security:</span>
+                                <span class="value public">No authentication required</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Access:</span>
+                                <span class="value">Read-only monitoring data</span>
+                            </div>
+                            <div class="detail-row">
+                                <span class="label">Real-time:</span>
+                                <span class="value good">30-second updates</span>
+                            </div>
+                        </div>
+
+                        <div class="access-actions">
+                            <button class="access-btn secondary active" disabled>
+                                ✅ Currently Active
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Information Modal Trigger -->
+                <div id="security-modal" class="modal hidden">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>🛡️ Console Security Information</h3>
+                            <button class="modal-close" onclick="hideSecurityInfo()">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="security-step">
+                                <h4>1. Device Approval Process</h4>
+                                <p>First-time access from any device requires manual approval for security.</p>
+                            </div>
+                            <div class="security-step">
+                                <h4>2. Secure Token Authentication</h4>
+                                <p>Pre-authenticated URL includes secure token, no manual login required.</p>
+                            </div>
+                            <div class="security-step">
+                                <h4>3. Tailscale Funnel Protection</h4>
+                                <p>External access secured through Tailscale's encrypted tunnel infrastructure.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
