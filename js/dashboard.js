@@ -54,49 +54,66 @@ class MissionControlDashboard {
     }
 
     setupEventListeners() {
-        // Refresh button
-        const refreshBtn = document.getElementById('refresh-btn');
-        refreshBtn.addEventListener('click', () => this.refreshData());
-        
-        // Tab switching (for future console integration)
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                tabBtns.forEach(b => b.classList.remove('active'));
-                e.target.classList.add('active');
+        try {
+            // Refresh button
+            const refreshBtn = document.getElementById('refresh-btn');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => this.refreshData());
+            }
+            
+            // Tab switching (for future console integration)
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                });
             });
-        });
-        
-        // Security modal event listeners
-        this.setupSecurityModal();
+            
+            // Security modal event listeners
+            this.setupSecurityModal();
+        } catch (error) {
+            console.warn('Event listeners setup failed:', error.message);
+            // Don't let this break initialization
+        }
     }
 
     setupHealthGauge() {
-        const canvas = document.getElementById('healthGauge');
-        const ctx = canvas.getContext('2d');
-        
-        // Create a custom gauge chart
-        this.charts.healthGauge = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [65, 35], // 65% filled, 35% empty
-                    backgroundColor: ['#f59e0b', '#252d3d'],
-                    borderWidth: 0,
-                    circumference: 180,
-                    rotation: 270
-                }]
-            },
-            options: {
-                responsive: false,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: { enabled: false }
-                },
-                cutout: '70%'
+        try {
+            const canvas = document.getElementById('healthGauge');
+            if (!canvas) {
+                console.warn('Health gauge canvas not found');
+                return;
             }
-        });
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Create a custom gauge chart
+            this.charts.healthGauge = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [65, 35], // 65% filled, 35% empty
+                        backgroundColor: ['#f59e0b', '#252d3d'],
+                        borderWidth: 0,
+                        circumference: 180,
+                        rotation: 270
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    cutout: '70%'
+                }
+            });
+        } catch (error) {
+            console.warn('Health gauge setup failed:', error.message);
+            // Don't let this break initialization
+        }
     }
 
     async loadData() {
