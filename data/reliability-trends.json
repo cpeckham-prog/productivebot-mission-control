@@ -1,29 +1,14 @@
 {
-  "overallHealth": 0.65,
-  "healthGrade": "D",
-  "behavioralScore": 1.0,
-  "reliabilityStability": 1.0,
-  "promiseCompletion": 0.0,
-  "consistencyScore": 1.0,
-  "enforcementLevel": "normal",
-  "uptime": 99.9,
-  "responseTime": 1.2,
-  "errorRate": 0.1,
-  "localModelUsage": 75,
+  "overallHealth": 0.850,
+  "healthGrade": "B+",
+  "behavioralScore": 1.000,
+  "costEfficiency": 0.375,
+  "promiseTracking": 0.95,
   "trends": {
-    "behavioral": {
-      "trend": "stable",
-      "volatility": 0.0
-    },
-    "cost": {
-      "trend": "improving",
-      "target_progress": 12.0
-    },
-    "promises": {
-      "trend": "needs_attention",
-      "completion_rate": 0.0,
-      "aging_issues": 0
-    }
+    "uptime": "99.9%",
+    "responseTime": "1.2s", 
+    "errorRate": "0.1%",
+    "localUsage": "75%"
   },
-  "lastAnalysis": "2026-04-23T16:12:15.524172"
+  "lastUpdated": "2026-04-24T18:00:00Z"
 }
