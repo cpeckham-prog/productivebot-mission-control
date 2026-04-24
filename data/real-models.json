@@ -1,0 +1,14 @@
+{
+  "primary": "anthropic/claude-sonnet-4-20250514",
+  "fallbacks": ["ollama/llama3.2:3b", "openai/gpt-5.4"],
+  "distribution": {
+    "claude": 61,
+    "gpt": 39,
+    "local": 0
+  },
+  "costs": {
+    "claude": 0.239436,
+    "gpt": 0.559591,
+    "local": 0
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "activeSessions": 2,
+  "sessions": [
+    {
+      "label": "Main Session",
+      "model": "claude-sonnet-4",
+      "duration": "7h 20m",
+      "tokens": 86282,
+      "cost": 0.239436,
+      "status": "running"
+    },
+    {
+      "label": "job-search-workstream",
+      "model": "gpt-5.4", 
+      "duration": "57s runtime",
+      "tokens": 55269,
+      "cost": 0.559591,
+      "status": "completed"
+    }
+  ],
+  "totalCost": 0.799027,
+  "totalTokens": 141551
+}

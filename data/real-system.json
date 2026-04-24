@@ -1,0 +1,10 @@
+{
+  "uptime": "11 days, 14h 7m",
+  "loadAverage": [2.10, 1.75, 1.58],
+  "diskUsage": 8,
+  "diskFree": "145Gi",
+  "processes": 4,
+  "cacheHitRate": 1,
+  "contextUsage": 48,
+  "contextTokens": "95k/200k"
+}
