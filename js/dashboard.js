@@ -211,11 +211,59 @@ class MissionControlDashboard {
     }
 
     updateDashboard() {
+        if (!this.data.cost || !this.data.reliability || !this.data.system) {
+            console.warn('Dashboard data incomplete, showing error state');
+            this.showDataUnavailable();
+            return;
+        }
+
+        // Check for error states and show clear error messages
+        if (this.data.cost.error || this.data.reliability.error || this.data.system.error) {
+            console.warn('Dashboard data contains errors, showing error state');
+            this.showDataUnavailable();
+            return;
+        }
+
+        // Only update dashboard with real data
         this.updateHealthMetrics();
         this.updateCostMetrics();
         this.updateReliabilityMetrics();
         this.updateSystemStatus();
         this.updateActivityLog();
+        
+        console.log('✅ Dashboard updated successfully with real data');
+    }
+    
+    showDataUnavailable() {
+        // Show clear error states instead of fake data
+        document.body.innerHTML = `
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #0f1419; color: #ffffff; font-family: 'SF Pro Text', -apple-system, sans-serif;">
+                <div style="text-align: center; max-width: 600px; padding: 40px;">
+                    <h1 style="color: #ef4444; margin-bottom: 20px; font-size: 2rem;">⚠️ Dashboard Data Unavailable</h1>
+                    <p style="color: #a0a9c0; font-size: 1.1rem; line-height: 1.6; margin-bottom: 30px;">
+                        Unable to load real-time monitoring data from the system. 
+                        The dashboard will not display placeholder or estimated data.
+                    </p>
+                    <div style="background: #252d3d; padding: 20px; border-radius: 8px; margin-bottom: 30px; text-align: left;">
+                        <h3 style="color: #00d2ff; margin-bottom: 10px;">Data Sources Checked:</h3>
+                        <ul style="color: #6b7280; line-height: 1.8;">
+                            <li>❌ Cost optimization metrics (data/cost-state.json)</li>
+                            <li>❌ System reliability data (data/reliability-trends.json)</li>  
+                            <li>❌ System status (/api/system/status, data/system-status.json)</li>
+                            <li>❌ Activity logs (data/activity-log.json)</li>
+                        </ul>
+                    </div>
+                    <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                        <button onclick="window.location.reload()" style="background: #00d2ff; color: #0f1419; border: none; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer;">
+                            🔄 Retry Loading
+                        </button>
+                        <a href="https://productivebot-0mvy.taileb98c9.ts.net/" target="_blank" style="background: #10b981; color: white; text-decoration: none; padding: 12px 24px; border-radius: 6px; font-weight: 600;">
+                            🔒 Access Secure Console
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 
     updateHealthMetrics() {
