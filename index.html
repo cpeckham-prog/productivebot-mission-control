@@ -15,7 +15,7 @@
       <div>
         <div class="eyebrow">ProductiveBot</div>
         <h1>Mission Control</h1>
-        <p class="subhead">A trust-first operations snapshot built around what is actually live right now.</p>
+        <p class="subhead">A source-only operations snapshot. If data is missing or uncertain, this page shows that directly.</p>
       </div>
       <div class="topbar-actions">
         <button id="refresh-btn" class="button secondary">Refresh</button>
@@ -25,19 +25,17 @@
     <section class="hero card">
       <div>
         <div class="eyebrow">Current posture</div>
-        <h2>Hybrid operating model, simplified loop surface.</h2>
-        <p>
-          Main work uses cloud quality. Routine checks use local Ollama. Legacy recurring loops were retired so the system no longer pretends old automations are still active.
-        </p>
+        <h2 id="hero-title">Loading snapshot...</h2>
+        <p id="hero-body">Waiting for source-backed dashboard data.</p>
       </div>
       <div class="meta-grid">
         <div>
           <div class="meta-label">Snapshot time</div>
-          <div class="meta-value" id="generated-at">2026-04-24 16:33 CDT</div>
+          <div class="meta-value" id="generated-at">unavailable</div>
         </div>
         <div>
-          <div class="meta-label">Source summary</div>
-          <div class="meta-value meta-wrap" id="source-summary">Manual snapshot from OpenClaw session/config review on April 24, 2026</div>
+          <div class="meta-label">Data policy</div>
+          <div class="meta-value meta-wrap" id="source-summary">Source-only snapshot. Missing values render as unavailable or uncertain.</div>
         </div>
       </div>
     </section>
@@ -60,9 +58,9 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">Operating loop</div>
-            <h3>What is actually running</h3>
+            <h3>What is actually sourced</h3>
           </div>
-          <span class="pill">Cleaned up</span>
+          <span class="pill">Explicit states</span>
         </div>
         <div id="loop-list" class="stack-list"></div>
       </section>
@@ -70,10 +68,10 @@
       <section class="card full-width">
         <div class="section-head">
           <div>
-            <div class="eyebrow">Recent structural changes</div>
-            <h3>Why this page looks different now</h3>
+            <div class="eyebrow">Site monitor</div>
+            <h3>Public artifact checks</h3>
           </div>
-          <span class="pill">Human-readable</span>
+          <span class="pill">Saved state</span>
         </div>
         <div id="timeline-list" class="timeline-list"></div>
       </section>
@@ -82,13 +80,13 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">Trust model</div>
-            <h3>No pretending, no mystery numbers</h3>
+            <h3>No invented metrics</h3>
           </div>
         </div>
-        <ul class="callout-list">
-          <li>This page currently shows a manually curated snapshot, not a live streaming telemetry feed.</li>
-          <li>Only claims that can be traced back to the current config / cron / cleanup state are shown here.</li>
-          <li>If we later add live telemetry, it should arrive with explicit timestamps, source labels, and failure states.</li>
+        <ul class="callout-list" id="callout-list">
+          <li>This page loads from a generated snapshot file.</li>
+          <li>If a source is missing, the field should show unavailable, error, or uncertain.</li>
+          <li>Hardcoded manual status claims were removed from the main dashboard surface.</li>
         </ul>
       </section>
     </main>

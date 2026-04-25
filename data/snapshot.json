@@ -1,0 +1,109 @@
+{
+  "generatedAt": "2026-04-25T18:05:19.317564+00:00",
+  "generator": "source-only-dashboard-exporter",
+  "policy": {
+    "inventedDefaultsAllowed": false,
+    "onMissingData": "unavailable",
+    "onCommandFailure": "error",
+    "notes": "This snapshot exports only directly sourced values and explicit degraded states."
+  },
+  "models": {
+    "primary": {
+      "value": "anthropic/claude-sonnet-4-20250514",
+      "source": "/Users/productivebot/.openclaw/openclaw.json",
+      "freshness": "static config",
+      "status": "ok",
+      "error": null
+    },
+    "fallbacks": {
+      "value": [
+        "ollama/llama3.2:3b",
+        "openai/gpt-5.4"
+      ],
+      "source": "/Users/productivebot/.openclaw/openclaw.json",
+      "freshness": "static config",
+      "status": "ok",
+      "error": null
+    },
+    "heartbeatModel": {
+      "value": "ollama/llama3.2:3b",
+      "source": "/Users/productivebot/.openclaw/openclaw.json",
+      "freshness": "static config",
+      "status": "ok",
+      "error": null
+    }
+  },
+  "heartbeat": {
+    "schedule": {
+      "value": "30m",
+      "source": "/Users/productivebot/.openclaw/openclaw.json",
+      "freshness": "static config",
+      "status": "ok",
+      "error": null
+    },
+    "docPath": {
+      "value": "/Users/productivebot/.openclaw/workspace/HEARTBEAT.md",
+      "source": "/Users/productivebot/.openclaw/workspace/HEARTBEAT.md",
+      "freshness": "static path",
+      "status": "ok",
+      "error": null
+    },
+    "docReadStatus": {
+      "value": "loaded",
+      "source": "/Users/productivebot/.openclaw/workspace/HEARTBEAT.md",
+      "freshness": "read time",
+      "status": "ok",
+      "error": null
+    }
+  },
+  "operatingLoop": {
+    "activeWorkState": {
+      "value": "blocked_or_non_active",
+      "source": "/Users/productivebot/.openclaw/workspace/ACTIVE_WORK.md",
+      "freshness": "manual doc",
+      "status": "ok",
+      "error": null
+    },
+    "operatingLoopDoc": {
+      "value": "/Users/productivebot/.openclaw/workspace/OPERATING_LOOP.md",
+      "source": "/Users/productivebot/.openclaw/workspace/OPERATING_LOOP.md",
+      "freshness": "static path",
+      "status": "ok",
+      "error": null
+    }
+  },
+  "siteMonitor": {
+    "value": {
+      "checkedAt": "2026-04-25 13:00:10 ",
+      "overall_ok": true,
+      "pages_ok": true,
+      "custom_ok": true,
+      "redirect_ok": true,
+      "repo_ok": true,
+      "pages_missing": [],
+      "custom_missing": [],
+      "pages_old_present": [],
+      "custom_old_present": []
+    },
+    "source": "/Users/productivebot/.openclaw/workspace/memory/dashboard-site-check-state.json",
+    "freshness": "2026-04-25 13:00:10 ",
+    "status": "ok",
+    "error": null
+  },
+  "cron": {
+    "jobs": [
+      {
+        "name": "Dashboard Site Check",
+        "status": "not_verified",
+        "source": "cron scheduler not queried by exporter"
+      },
+      {
+        "name": "Daily Operating Review",
+        "status": "not_verified",
+        "source": "cron scheduler not queried by exporter"
+      }
+    ],
+    "status": "uncertain",
+    "source": "exporter does not query scheduler directly"
+  }
+}

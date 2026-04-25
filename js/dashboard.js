@@ -1,110 +1,94 @@
 class MissionControlDashboard {
     constructor() {
-        this.data = {
-            generatedAt: '2026-04-24 15:43 CDT',
-            sourceSummary: 'Manual snapshot from OpenClaw session/config review on April 24, 2026',
-            sessions: [
-                {
-                    name: 'Main session',
-                    model: 'anthropic/claude-sonnet-4-20250514',
-                    role: 'Main work',
-                    source: 'OpenClaw config / session review',
-                    note: 'Primary conversational model after hybrid cleanup.'
-                },
-                {
-                    name: 'Heartbeat / routine checks',
-                    model: 'ollama/llama3.2:3b',
-                    role: 'Routine checks',
-                    source: 'agents.defaults.heartbeat',
-                    note: 'Local model reserved for heartbeat and lightweight validation.'
-                },
-                {
-                    name: 'Fallback path',
-                    model: 'ollama → claude → gpt-5.4',
-                    role: 'Resilience path',
-                    source: 'OpenClaw config',
-                    note: 'Hybrid strategy: quality-first main work, cost-aware routine tasks.'
-                }
-            ],
-            operatingLoop: [
-                {
-                    title: 'Heartbeat',
-                    status: 'active',
-                    detail: 'Quiet by default. Uses ACTIVE_WORK.md as source of truth.'
-                },
-                {
-                    title: 'Daily Operating Review',
-                    status: 'active',
-                    detail: 'Only remaining recurring cron accountability loop.'
-                },
-                {
-                    title: 'Legacy drift / parking / weekly / email-job scans',
-                    status: 'retired',
-                    detail: 'Removed from live cron surface during cleanup on April 24.'
-                }
-            ],
-            proofCards: [
-                {
-                    label: 'Cron jobs still active',
-                    value: '1',
-                    help: 'Only Daily Operating Review remains in cron after cleanup.'
-                },
-                {
-                    label: 'Primary work model',
-                    value: 'Claude',
-                    help: 'Main work prioritizes quality over aggressive cost routing.'
-                },
-                {
-                    label: 'Routine check model',
-                    value: 'Local',
-                    help: 'Heartbeat and lightweight checks stay on Ollama.'
-                },
-                {
-                    label: 'Legacy loops retired',
-                    value: '5',
-                    help: 'Hourly drift, parking lot, weekly review, email triage, and job-search scan were removed.'
-                }
-            ],
-            timeline: [
-                {
-                    time: 'Today',
-                    title: 'Operating loop simplified',
-                    body: 'Reduced the live recurring system to heartbeat plus daily operating review.'
-                },
-                {
-                    time: 'Today',
-                    title: 'Hybrid model strategy adopted',
-                    body: 'Main work stays on Claude; routine checks stay on local Ollama.'
-                },
-                {
-                    time: 'Today',
-                    title: 'Legacy cron and scripts retired',
-                    body: 'Old drift-check, parking-lot, weekly review, email/job-search cron paths were removed or archived.'
-                }
-            ]
-        };
+        this.snapshot = null;
     }
 
-    init() {
-        this.renderMeta();
-        this.renderProofCards();
-        this.renderSessions();
-        this.renderOperatingLoop();
-        this.renderTimeline();
+    async init() {
         this.bindRefresh();
+        await this.loadSnapshot();
+        this.render();
+    }
+
+    async loadSnapshot() {
+        try {
+            const response = await fetch('data/snapshot.json', { cache: 'no-store' });
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            this.snapshot = await response.json();
+        } catch (error) {
+            this.snapshot = {
+                generatedAt: null,
+                policy: { notes: 'Snapshot unavailable.' },
+                error: String(error)
+            };
+        }
+    }
+
+    statusText(field) {
+        if (!field) return 'unavailable';
+        if (field.status && field.status !== 'ok') return field.status;
+        if (field.value === null || field.value === undefined || field.value === '') return 'unavailable';
+        return 'ok';
+    }
+
+    displayValue(field) {
+        if (!field) return 'unavailable';
+        if (field.value === null || field.value === undefined || field.value === '') return 'unavailable';
+        if (Array.isArray(field.value)) return field.value.join(', ');
+        if (typeof field.value === 'object') return JSON.stringify(field.value);
+        return String(field.value);
+    }
+
+    render() {
+        this.renderMeta();
+        this.renderHero();
+        this.renderProofCards();
+        this.renderModels();
+        this.renderOperatingLoop();
+        this.renderSiteMonitor();
     }
 
     renderMeta() {
         const updated = document.getElementById('generated-at');
         const summary = document.getElementById('source-summary');
-        if (updated && !updated.textContent.trim()) updated.textContent = this.data.generatedAt;
-        if (summary && !summary.textContent.trim()) summary.textContent = this.data.sourceSummary;
+        if (updated) updated.textContent = this.snapshot.generatedAt || 'unavailable';
+        if (summary) summary.textContent = this.snapshot.policy?.notes || 'Source-only snapshot.';
+    }
+
+    renderHero() {
+        const title = document.getElementById('hero-title');
+        const body = document.getElementById('hero-body');
+        const activeWork = this.snapshot.operatingLoop?.activeWorkState;
+        const site = this.snapshot.siteMonitor;
+        if (title) title.textContent = `Lane state: ${this.displayValue(activeWork)}`;
+        if (body) body.textContent = `Site monitor status: ${this.statusText(site)}. Heartbeat schedule: ${this.displayValue(this.snapshot.heartbeat?.schedule)}. Cron data remains ${this.snapshot.cron?.status || 'unavailable'}.`;
     }
 
     renderProofCards() {
         const container = document.getElementById('proof-cards');
         if (!container) return;
-        container.innerHTML = this.data.proofCards.map(card => `
+        const cards = [
+            {
+                label: 'Primary model',
+                value: this.displayValue(this.snapshot.models?.primary),
+                help: this.snapshot.models?.primary?.source || 'unavailable'
+            },
+            {
+                label: 'Heartbeat model',
+                value: this.displayValue(this.snapshot.models?.heartbeatModel),
+                help: this.snapshot.models?.heartbeatModel?.source || 'unavailable'
+            },
+            {
+                label: 'Lane state',
+                value: this.displayValue(this.snapshot.operatingLoop?.activeWorkState),
+                help: this.snapshot.operatingLoop?.activeWorkState?.source || 'unavailable'
+            },
+            {
+                label: 'Site monitor',
+                value: this.statusText(this.snapshot.siteMonitor),
+                help: this.snapshot.siteMonitor?.freshness || 'unavailable'
+            }
+        ];
+        container.innerHTML = cards.map(card => `
             <div class="proof-card">
                 <div class="proof-value">${card.value}</div>
                 <div class="proof-label">${card.label}</div>
@@ -113,10 +97,33 @@ class MissionControlDashboard {
         `).join('');
     }
 
-    renderSessions() {
+    renderModels() {
         const container = document.getElementById('session-list');
         if (!container) return;
-        container.innerHTML = this.data.sessions.map(item => `
+        const rows = [
+            {
+                name: 'Primary model',
+                role: 'Main configured work model',
+                model: this.displayValue(this.snapshot.models?.primary),
+                source: this.snapshot.models?.primary?.source || 'unavailable',
+                note: `Status: ${this.statusText(this.snapshot.models?.primary)}`
+            },
+            {
+                name: 'Fallback models',
+                role: 'Configured fallback path',
+                model: this.displayValue(this.snapshot.models?.fallbacks),
+                source: this.snapshot.models?.fallbacks?.source || 'unavailable',
+                note: `Status: ${this.statusText(this.snapshot.models?.fallbacks)}`
+            },
+            {
+                name: 'Heartbeat model',
+                role: 'Scheduled routine-check model',
+                model: this.displayValue(this.snapshot.models?.heartbeatModel),
+                source: this.snapshot.models?.heartbeatModel?.source || 'unavailable',
+                note: `Schedule: ${this.displayValue(this.snapshot.heartbeat?.schedule)}`
+            }
+        ];
+        container.innerHTML = rows.map(item => `
             <div class="info-row">
                 <div>
                     <div class="row-title">${item.name}</div>
@@ -134,7 +141,24 @@ class MissionControlDashboard {
     renderOperatingLoop() {
         const container = document.getElementById('loop-list');
         if (!container) return;
-        container.innerHTML = this.data.operatingLoop.map(item => `
+        const items = [
+            {
+                title: 'ACTIVE_WORK state',
+                status: this.statusText(this.snapshot.operatingLoop?.activeWorkState),
+                detail: `Value: ${this.displayValue(this.snapshot.operatingLoop?.activeWorkState)}`
+            },
+            {
+                title: 'HEARTBEAT document',
+                status: this.statusText(this.snapshot.heartbeat?.docReadStatus),
+                detail: `Path: ${this.displayValue(this.snapshot.heartbeat?.docPath)}`
+            },
+            {
+                title: 'Cron snapshot',
+                status: this.snapshot.cron?.status || 'unavailable',
+                detail: 'Scheduler-backed cron export is not implemented in snapshot.json yet.'
+            }
+        ];
+        container.innerHTML = items.map(item => `
             <div class="loop-row status-${item.status}">
                 <div class="loop-header">
                     <span class="loop-title">${item.title}</span>
@@ -145,10 +169,18 @@ class MissionControlDashboard {
         `).join('');
     }
 
-    renderTimeline() {
+    renderSiteMonitor() {
         const container = document.getElementById('timeline-list');
         if (!container) return;
-        container.innerHTML = this.data.timeline.map(item => `
+        const site = this.snapshot.siteMonitor;
+        const value = site?.value || {};
+        const items = [
+            { time: site?.freshness || 'unavailable', title: 'Overall check', body: `overall_ok: ${String(value.overall_ok ?? 'unavailable')}` },
+            { time: site?.freshness || 'unavailable', title: 'Redirect', body: `redirect_ok: ${String(value.redirect_ok ?? 'unavailable')}` },
+            { time: site?.freshness || 'unavailable', title: 'Pages content', body: `pages_ok: ${String(value.pages_ok ?? 'unavailable')}` },
+            { time: site?.freshness || 'unavailable', title: 'Repo reachability', body: `repo_ok: ${String(value.repo_ok ?? 'unavailable')}` }
+        ];
+        container.innerHTML = items.map(item => `
             <div class="timeline-item">
                 <div class="timeline-time">${item.time}</div>
                 <div class="timeline-content">
