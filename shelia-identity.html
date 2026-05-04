@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shelia Identity Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1420;
+      --card: #152235;
+      --line: #223754;
+      --text: #eaf2ff;
+      --muted: #9cb1cb;
+      --cyan: #39D0D8;
+      --navy: #18263A;
+      --violet: #7A5CFF;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: radial-gradient(circle at top, #14233a 0%, var(--bg) 48%, #0a1018 100%);
+      color: var(--text);
+      padding: 40px 24px 64px;
+    }
+    .wrap { max-width: 1180px; margin: 0 auto; }
+    .eyebrow { color: var(--cyan); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; font-weight: 700; }
+    h1 { font-size: 44px; margin: 8px 0 12px; }
+    .lede { max-width: 760px; color: var(--muted); font-size: 18px; line-height: 1.55; }
+    .palette { display: flex; gap: 12px; margin: 28px 0 36px; flex-wrap: wrap; }
+    .swatch { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px 16px; min-width: 180px; }
+    .chip { width: 100%; height: 44px; border-radius: 10px; margin-bottom: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .card { background: rgba(21,34,53,.82); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,.22); }
+    .art { aspect-ratio: 1/1; background: #0b1220; display:flex; align-items:center; justify-content:center; }
+    .art img { width: 100%; height: 100%; object-fit: cover; display:block; }
+    .body { padding: 18px 18px 20px; }
+    h2 { margin: 0 0 8px; font-size: 22px; }
+    p { margin: 0; color: var(--muted); line-height: 1.5; }
+    ul { color: var(--muted); line-height: 1.55; padding-left: 18px; }
+    .recommend { margin-top: 28px; background: linear-gradient(135deg, rgba(57,208,216,.12), rgba(122,92,255,.12)); border: 1px solid rgba(57,208,216,.22); border-radius: 20px; padding: 20px 22px; }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } h1 { font-size: 34px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">Shelia / Identity Review</div>
+    <h1>Calm strategic operator</h1>
+    <p class="lede">The target is not a bubbly mascot. It is a trusted second-in-command: protective without being smothering, sharp without being harsh, warm without going soft, and elegant enough to move through complexity without dragging attention with it.</p>
+
+    <div class="palette">
+      <div class="swatch"><div class="chip" style="background:#39D0D8"></div><strong>Signal Cyan</strong><br><span>#39D0D8</span></div>
+      <div class="swatch"><div class="chip" style="background:#18263A"></div><strong>Command Navy</strong><br><span>#18263A</span></div>
+      <div class="swatch"><div class="chip" style="background:#7A5CFF"></div><strong>Phase Violet</strong><br><span>#7A5CFF</span></div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <div class="art"><img src="./shelia-assets/shelia-triptych.png" style="object-position:left center;" alt="Shelia Command AI variant"></div>
+        <div class="body">
+          <h2>Command AI</h2>
+          <p>More structural authority and support-platform energy. Strongest "protect the perimeter, hold the line, stay calm under fire" read.</p>
+        </div>
+      </section>
+      <section class="card">
+        <div class="art"><img src="./shelia-assets/shelia-triptych.png" style="object-position:center center;" alt="Shelia Phantom Operator variant"></div>
+        <div class="body">
+          <h2>Phantom Operator</h2>
+          <p>Sleeker and more spectral. Leans into stealth, precision, perceptiveness, and the ability to move through noise without adding any.</p>
+        </div>
+      </section>
+      <section class="card">
+        <div class="art"><img src="./shelia-assets/shelia-triptych.png" style="object-position:right center;" alt="Shelia Balanced Master variant"></div>
+        <div class="body">
+          <h2>Balanced Master</h2>
+          <p>The fusion path. Enough structure to feel dependable, enough phase/ghost energy to feel intelligent and elegant, and the best fit for an executive working partner.</p>
+        </div>
+      </section>
+    </div>
+
+    <section class="recommend">
+      <div class="eyebrow">Recommendation</div>
+      <h2>Balanced Master is still the best base.</h2>
+      <ul>
+        <li>Keep the cyan/navy/violet palette.</li>
+        <li>Preserve the calm, high-trust expression.</li>
+        <li>If we refine further, push 10-15% more command geometry without losing the stealth elegance.</li>
+      </ul>
+    </section>
+  </div>
+</body>
+</html>
