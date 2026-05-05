@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="1760" viewBox="0 0 1600 1760">
+  <title>Family Premium Emblem surgical edit workfile</title>
+  <desc>Locked master + problem-area references for lower-center orange construction cleanup.</desc>
+  <rect width="1600" height="1760" fill="#f4f6f8"/>
+
+  <g id="master-panel">
+    <rect x="40" y="40" width="760" height="1680" rx="16" fill="#ffffff" stroke="#d7dee7"/>
+    <text x="72" y="96" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#132f55">Locked master</text>
+    <text x="72" y="130" font-family="Inter, Arial, sans-serif" font-size="16" fill="#5f6f84">family-premium-emblem-final.png</text>
+    <image x="120" y="170" width="600" height="600" preserveAspectRatio="xMidYMid meet" xlink:href="family-premium-emblem-final.png"/>
+    <rect x="295.78" y="474.69" width="251.95" height="222.66" fill="none" stroke="#dc1e1e" stroke-width="3"/>
+    <text x="72" y="820" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" fill="#132f55">Locked edit area</text>
+    <text x="72" y="850" font-family="Inter, Arial, sans-serif" font-size="15" fill="#5f6f84">Only the lower-center orange construction may change.</text>
+  </g>
+
+  <g id="reference-panel">
+    <rect x="840" y="40" width="720" height="1680" rx="16" fill="#ffffff" stroke="#d7dee7"/>
+    <text x="872" y="96" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="700" fill="#132f55">Problem-area references</text>
+    <text x="872" y="130" font-family="Inter, Arial, sans-serif" font-size="16" fill="#5f6f84">Use these as the comparison anchors during the edit.</text>
+
+    <text x="872" y="190" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" fill="#132f55">Annotated full master</text>
+    <image x="900" y="220" width="600" height="600" preserveAspectRatio="xMidYMid meet" xlink:href="family-premium-emblem-annotated-box.png"/>
+
+    <text x="872" y="870" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" fill="#132f55">Isolated crop</text>
+    <image x="965" y="900" width="430" height="380" preserveAspectRatio="xMidYMid meet" xlink:href="family-premium-emblem-lower-center-crop.png"/>
+    <text x="872" y="1310" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="600" fill="#132f55">Orange vector candidate v2</text>
+    <image x="965" y="1340" width="430" height="380" preserveAspectRatio="xMidYMid meet" xlink:href="family-premium-emblem-orange-segment-overlay-v2.svg"/>
+  </g>
+
+  <g id="notes">
+    <text x="72" y="1640" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#132f55">Hard rules</text>
+    <text x="72" y="1670" font-family="Inter, Arial, sans-serif" font-size="14" fill="#5f6f84">• No full-emblem retrace • No CPD work • No changes outside the boxed region • Export only after side-by-side master comparison</text>
+  </g>
+</svg>
