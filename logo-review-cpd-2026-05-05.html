@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CPD SVG Rebuild Review — 2026-05-05</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --card: #ffffff;
+      --ink: #132f55;
+      --muted: #5f6f84;
+      --line: #d7dee7;
+      --accent: #39d0d8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: #102033;
+      line-height: 1.45;
+    }
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 32px 20px 64px; }
+    h1,h2,h3,p { margin: 0; }
+    .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+    .hero, .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 8px 24px rgba(15, 35, 60, 0.05);
+    }
+    .hero { margin-bottom: 20px; }
+    .hero p { color: var(--muted); margin-top: 10px; max-width: 900px; }
+    .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 18px; }
+    .meta div { background: #f8fafc; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 18px; margin-top: 18px; }
+    .card h2 { font-size: 18px; margin-top: 6px; }
+    .card p { color: var(--muted); margin-top: 8px; }
+    .artboard {
+      margin-top: 16px;
+      background: linear-gradient(180deg, #ffffff, #fbfdff);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      min-height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .artboard img { max-width: 100%; height: auto; display: block; }
+    .links { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+    a {
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid var(--line);
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: 999px;
+    }
+    a:hover { border-color: var(--accent); }
+    ul { margin: 12px 0 0 18px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">CPD / review package</div>
+      <h1>SVG rebuild review — 2026-05-05</h1>
+      <p>Approved path: approved PNG master → manual SVG rebuild → surgical vector fix → raster exports. This page is the accessible review surface for the rebuild in progress. The locked master is <strong>cpd-final-approved-lockup.png</strong>; the current cleaned candidate is <strong>clean-v2</strong>.</p>
+      <div class="meta">
+        <div><strong>Locked master</strong><br />cpd-final-approved-lockup.png</div>
+        <div><strong>Current candidate</strong><br />cpd-final-approved-lockup-clean-v2.svg</div>
+        <div><strong>Status</strong><br />Hosted for review access; final export decision not locked yet</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <div class="eyebrow">Current lockup</div>
+        <h2>clean-v2</h2>
+        <p>Second cleanup pass with much lower vector complexity, preserving the same lockup structure for the symbol + wordmark.</p>
+        <div class="artboard">
+          <img src="logo-assets/cpd-final-approved-lockup-clean-v2.svg" alt="CPD lockup clean v2" />
+        </div>
+        <div class="links">
+          <a href="logo-assets/cpd-final-approved-lockup-clean-v2.svg">Open SVG</a>
+          <a href="logo-assets/cpd-wordmark-clean-v2.svg">Wordmark SVG</a>
+          <a href="logo-assets/cpd-symbol-clean-v2.svg">Symbol SVG</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="eyebrow">Previous cleanup</div>
+        <h2>clean-v1</h2>
+        <p>Earlier cleanup pass with more trace detail retained. Kept here as the comparison anchor before finalizing the export master.</p>
+        <div class="artboard">
+          <img src="logo-assets/cpd-final-approved-lockup-clean-v1.svg" alt="CPD lockup clean v1" />
+        </div>
+        <div class="links">
+          <a href="logo-assets/cpd-final-approved-lockup-clean-v1.svg">Open SVG</a>
+          <a href="logo-assets/cpd-wordmark-clean-v1.svg">Wordmark SVG</a>
+          <a href="logo-assets/cpd-symbol-clean-v1.svg">Symbol SVG</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="eyebrow">Locked source</div>
+        <h2>Approved PNG master</h2>
+        <p>This is the non-editable raster source the rebuild is anchored to. No concept swap, no design-family drift.</p>
+        <div class="artboard">
+          <img src="logo-assets/cpd-final-approved-lockup.png" alt="Approved CPD PNG master" />
+        </div>
+        <div class="links">
+          <a href="logo-assets/cpd-final-approved-lockup.png">Open PNG master</a>
+          <a href="logo-assets/cpd-svg-rebuild-brief-2026-05-05.md">Rebuild brief</a>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="eyebrow">Working notes</div>
+        <h2>What changed so far</h2>
+        <ul>
+          <li>Built a controllable base SVG from the approved PNG master.</li>
+          <li>Split the symbol and wordmark into separate editable vector files.</li>
+          <li>Removed tiny reconstruction noise fragments.</li>
+          <li>Reduced full-lockup trace points substantially in clean-v2 for better editability.</li>
+          <li>Not yet calling the export master final until the hosted review comparison is checked.</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
