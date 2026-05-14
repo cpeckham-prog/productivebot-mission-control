@@ -22,8 +22,7 @@ function htmlEsc(x){return String(x).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;
 function save(){localStorage.setItem('tbbBudgetDash',JSON.stringify(state))}
 function resetLocal(){if(confirm('Clear local edits and reload the seed dashboard?')){localStorage.removeItem('tbbBudgetDash');location.reload()}}
 function downloadJSON(){download('tbb_budget_dashboard_saved.json',JSON.stringify(state,null,2),'application/json')}
-function downloadTable(id, filename){let rows=[...document.querySelectorAll('#'+id+' tr')].map(tr=>[...tr.children].map(td=>'"'+td.innerText.replaceAll('"','""')+'"').join(','));download(filename,rows.join('
-'),'text/csv')}
+function downloadTable(id, filename){let rows=[...document.querySelectorAll('#'+id+' tr')].map(tr=>[...tr.children].map(td=>'"'+td.innerText.replaceAll('"','""')+'"').join(','));download(filename,rows.join('\n'),'text/csv')}
 function download(name, content, type){let a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click()}
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('main>section.panel').forEach(s=>s.classList.add('hidden'));document.getElementById(b.dataset.tab).classList.remove('hidden')});
 initScenario();buildDecision();buildVariance();buildLines();</script></body></html>
