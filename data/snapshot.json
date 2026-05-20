@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T00:54:19.642551+00:00",
+  "generatedAt": "2026-05-20T00:55:59.707195+00:00",
   "generator": "source-only-dashboard-exporter",
   "policy": {
     "inventedDefaultsAllowed": false,
@@ -74,23 +74,27 @@
   },
   "siteMonitor": {
     "value": {
-      "checkedAt": "2026-04-26 09:30:08 ",
-      "overall_ok": true,
+      "checkedAt": "2026-05-19 19:55:55 ",
+      "overall_ok": false,
       "pages_ok": true,
-      "custom_ok": true,
+      "custom_ok": false,
       "snapshot_ok": true,
       "snapshot_issue": null,
-      "redirect_ok": true,
+      "redirect_ok": false,
       "repo_ok": true,
       "pages_missing": [],
-      "custom_missing": [],
+      "custom_missing": [
+        "A source-only operations snapshot. If data is missing or uncertain, this page shows that directly.",
+        "What is actually sourced",
+        "No invented metrics"
+      ],
       "pages_old_present": [],
       "custom_old_present": []
     },
     "source": "/Users/productivebot/.openclaw/workspace/memory/dashboard-site-check-state.json",
-    "freshness": "2026-04-26 09:30:08 ",
-    "status": "ok",
-    "error": null
+    "freshness": "2026-05-19 19:55:55 ",
+    "status": "error",
+    "error": "error"
   },
   "cron": {
     "jobs": [
