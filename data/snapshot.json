@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-25T18:05:19.317564+00:00",
+  "generatedAt": "2026-05-20T00:54:19.642551+00:00",
   "generator": "source-only-dashboard-exporter",
   "policy": {
     "inventedDefaultsAllowed": false,
@@ -9,7 +9,7 @@
   },
   "models": {
     "primary": {
-      "value": "anthropic/claude-sonnet-4-20250514",
+      "value": "openai/gpt-5.5",
       "source": "/Users/productivebot/.openclaw/openclaw.json",
       "freshness": "static config",
       "status": "ok",
@@ -17,8 +17,8 @@
     },
     "fallbacks": {
       "value": [
-        "ollama/llama3.2:3b",
-        "openai/gpt-5.4"
+        "google/gemini-2.5-pro",
+        "anthropic/claude-opus-4-6"
       ],
       "source": "/Users/productivebot/.openclaw/openclaw.json",
       "freshness": "static config",
@@ -26,7 +26,7 @@
       "error": null
     },
     "heartbeatModel": {
-      "value": "ollama/llama3.2:3b",
+      "value": "xai/grok-3-mini-fast",
       "source": "/Users/productivebot/.openclaw/openclaw.json",
       "freshness": "static config",
       "status": "ok",
@@ -58,7 +58,7 @@
   },
   "operatingLoop": {
     "activeWorkState": {
-      "value": "blocked_or_non_active",
+      "value": "active",
       "source": "/Users/productivebot/.openclaw/workspace/ACTIVE_WORK.md",
       "freshness": "manual doc",
       "status": "ok",
@@ -74,10 +74,12 @@
   },
   "siteMonitor": {
     "value": {
-      "checkedAt": "2026-04-25 13:00:10 ",
+      "checkedAt": "2026-04-26 09:30:08 ",
       "overall_ok": true,
       "pages_ok": true,
       "custom_ok": true,
+      "snapshot_ok": true,
+      "snapshot_issue": null,
       "redirect_ok": true,
       "repo_ok": true,
       "pages_missing": [],
@@ -86,7 +88,7 @@
       "custom_old_present": []
     },
     "source": "/Users/productivebot/.openclaw/workspace/memory/dashboard-site-check-state.json",
-    "freshness": "2026-04-25 13:00:10 ",
+    "freshness": "2026-04-26 09:30:08 ",
     "status": "ok",
     "error": null
   },
